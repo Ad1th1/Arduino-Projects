@@ -1,0 +1,40 @@
+https://www.tinkercad.com/things/eZmgqYGnodz-q1/editel
+
+
+int even[] = {2, 4, 6, 8, 10, 12};
+int odd[] = {3, 5, 7, 9, 11, 13};
+
+void setup()
+{
+  Serial.begin(9600);
+  int i;
+  for (i = 0; i < 6; i++)
+  {
+    pinMode(even[i], OUTPUT);
+    pinMode(odd[i], OUTPUT);
+  }
+}
+
+void loop()
+
+{
+  int i;
+
+  for (i = 0; i < 6; i++)
+  {
+    digitalWrite(even[i], HIGH);
+    digitalWrite(odd[i], LOW);
+  }
+  delay(1000);
+
+  for (i = 0; i < 6; i++)
+  {
+    digitalWrite(odd[i], HIGH);
+    digitalWrite(even[i], LOW);
+
+  }
+
+  delay(1000);
+
+
+}
