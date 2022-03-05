@@ -1,0 +1,35 @@
+#include<Servo.h>
+Servo myservo;
+int led[] = {2,3,4,5,6,7,8,9,10,11,12,13};
+
+
+void setup()
+{
+  myservo.attach(A2);
+  myservo.write(0);
+  Serial.begin(9600);
+  int i;
+  for (i = 0; i < 12; i++)
+  {
+    pinMode(led[i], OUTPUT);
+  }
+}
+
+void loop()
+
+{
+  int analogValue = analogRead(A0);
+
+  int number = map(analogValue, 0, 1023, 0, 12);
+  int revol = map(analogValue, 0, 1023, 180, 0);
+  
+  myservo.write(revol);
+  for(int i=0;i<number;i++){
+  digitalWrite(led[i], HIGH);
+  digitalWrite(led[i], LOW);
+    
+  }
+  
+ 
+
+}
