@@ -1,0 +1,38 @@
+int pri[] = {13,2,3,5,7,11};
+int unp[] = {4,6,8,9,10,12};
+
+
+void setup()
+{
+  Serial.begin(9600);
+  int i;
+  for (i = 0; i < 6; i++)
+  {
+    pinMode(pri[i], OUTPUT);
+    pinMode(unp[i], OUTPUT);
+  }
+}
+
+void loop()
+
+{
+  int i;
+
+  for (i = 0; i < 6; i++)
+  {
+    digitalWrite(pri[i], HIGH);
+    digitalWrite(unp[i], LOW);
+  }
+  delay(1000);
+
+  for (i = 0; i < 6; i++)
+  {
+    digitalWrite(pri[i], LOW);
+    digitalWrite(unp[i], HIGH);
+
+  }
+
+  delay(1000);
+
+
+}
