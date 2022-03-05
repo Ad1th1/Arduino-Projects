@@ -1,0 +1,47 @@
+https://www.tinkercad.com/things/fh1Iu69KkNm
+~ Didn't work
+
+int buttonPin=13;
+int led[]={8,7,6,5,4,3,2};
+
+int buttonState;            
+int lastbuttonState = HIGH;   
+unsigned long lastDebounceTime = 0;  
+unsigned long debounceDelay = 50; 
+int count=0;
+int i;
+void setup()
+{
+  pinMode(buttonPin, INPUT);
+  Serial.begin(9600);
+  for (i = 0; i < 7; i++)
+  {
+    pinMode(led[i], OUTPUT);
+
+  }
+}
+void loop()
+ {    
+  int reading = digitalRead(buttonPin);
+  buttonState = digitalRead(buttonPin);
+
+   if (reading != lastbuttonState) {
+    lastDebounceTime = millis();
+  }
+
+  if ((millis() - lastDebounceTime) > debounceDelay) {
+    if (reading != buttonState) {
+      buttonState = reading;
+    }
+      else if (buttonState == HIGH && lastbuttonState==HIGH) {
+        count++;    
+      }
+      else if(buttonState == LOW && lastbuttonState == HIGH){
+       lastbuttonState=LOW; 
+      }
+    }
+  
+  digitalWrite(led[count-1], HIGH);
+  delay(2000);
+  digitalWrite(led[count-1], LOW);
+}
