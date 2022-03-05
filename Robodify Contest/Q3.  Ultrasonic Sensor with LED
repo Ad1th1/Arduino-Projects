@@ -1,0 +1,53 @@
+https://www.tinkercad.com/things/6seEpDRrvCD-q3/editel
+
+#define echoPin 2
+#define trigPin 3
+#define LEDR 11
+#define LEDG 13
+#define LEDB 12
+
+
+long duration;
+int distance;
+
+void setup()
+{
+pinMode(trigPin,OUTPUT);
+pinMode(echoPin,INPUT);
+Serial.begin(9600);
+  pinMode(13, OUTPUT);
+  pinMode(12, OUTPUT);
+  pinMode(11, OUTPUT);
+}
+
+
+void loop()
+{
+ digitalWrite(trigPin,LOW);
+ delayMicroseconds(2);
+  
+  digitalWrite(trigPin,HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin,LOW);
+  
+  duration=pulseIn(echoPin,HIGH);
+  distance=duration*0.034/2;
+  
+  if(distance<20){
+    digitalWrite(13, HIGH);
+    digitalWrite(12, LOW);
+    digitalWrite(11, LOW);
+  }
+  else if(distance>20 && distance<45) {
+    digitalWrite(12, HIGH);
+    digitalWrite(13, LOW);
+    digitalWrite(11, LOW);
+  }
+  else{
+    digitalWrite(11, HIGH);
+  digitalWrite(12, LOW);
+  digitalWrite(13, LOW);
+  }
+}
+    
+ 
