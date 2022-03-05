@@ -1,0 +1,76 @@
+#define r1 13
+#define b1 12
+#define g1 11
+#define r2 10
+#define b2 9
+#define g2 8
+#define r3 7
+#define b3 6
+#define g3 5
+#define r4 4
+#define b4 3
+#define g4 2
+
+int led[]={1,2,3,4};
+
+void setup() {                
+  pinMode(r1, OUTPUT);
+  pinMode(b1, OUTPUT);
+  pinMode(g1, OUTPUT);
+  pinMode(r2, OUTPUT);
+  pinMode(b2, OUTPUT);
+  pinMode(g2, OUTPUT);
+  pinMode(r3, OUTPUT);
+  pinMode(b3, OUTPUT);
+  pinMode(g3, OUTPUT);
+}
+
+
+void loop() {
+  f1();
+  delay(1000);
+  f2();
+  delay(1000);
+  f3();
+  delay(1000);
+  f4();
+  delay(1000);                  
+}
+void f1(){
+ digitalWrite(r1, HIGH);
+    digitalWrite(g2, HIGH);
+    digitalWrite(b3,HIGH);
+    delay(2000);
+    digitalWrite(r1, LOW);
+    digitalWrite(g2, LOW);
+    digitalWrite(b3,LOW);                  
+}
+                   
+void f2(){
+ digitalWrite(r2, HIGH);
+    digitalWrite(g3, HIGH);
+    digitalWrite(b4,HIGH);
+    delay(2000);
+    digitalWrite(r2, LOW);
+    digitalWrite(g3, LOW);
+    digitalWrite(b4,LOW);                  
+}
+void f3(){
+ digitalWrite(r3, HIGH);
+    digitalWrite(g4, HIGH);
+    digitalWrite(b1,HIGH);
+    delay(2000);
+    digitalWrite(r3, LOW);
+    digitalWrite(g4, LOW);
+    digitalWrite(b1,LOW);                  
+}
+void f4(){
+ digitalWrite(r4, HIGH);
+    digitalWrite(g1, HIGH);
+    digitalWrite(b2,HIGH);
+    delay(2000);
+    digitalWrite(r4, LOW);
+    digitalWrite(g1, LOW);
+    digitalWrite(b2,LOW);                  
+}
+                   
