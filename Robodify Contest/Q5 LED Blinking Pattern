@@ -1,0 +1,141 @@
+https://www.tinkercad.com/things/iX4HHbZ3pDG-q5/editel
+
+int a[] = {12,13};
+int b[] = {2,11};
+int c[] = {3,10};
+int d[] = {4,9};
+int e[] = {5,8};
+int f[] = {6,7};
+
+
+void setup()
+{
+  Serial.begin(9600);
+  int i;
+  for (i = 0; i < 2; i++)
+  {
+    pinMode(a[i], OUTPUT);
+    pinMode(b[i], OUTPUT);
+    pinMode(c[i], OUTPUT);
+    pinMode(d[i], OUTPUT);
+    pinMode(e[i], OUTPUT);
+    pinMode(f[i], OUTPUT);
+  }
+}
+
+void loop()
+
+{
+  int i;
+
+  for (i = 0; i < 2; i++)
+  {
+    digitalWrite(a[i], HIGH);
+    digitalWrite(b[i], LOW);
+    digitalWrite(c[i], LOW);
+    digitalWrite(d[i], LOW);
+    digitalWrite(e[i], LOW);
+    digitalWrite(f[i], LOW);
+  }
+  delay(1250);
+
+  for (i = 0; i < 2; i++)
+  {
+    digitalWrite(a[i], LOW);
+    digitalWrite(b[i], HIGH);
+    digitalWrite(c[i], LOW);
+    digitalWrite(d[i], LOW);
+    digitalWrite(e[i], LOW);
+    digitalWrite(f[i], LOW);
+  }
+  delay(1250);
+  
+  for (i = 0; i < 2; i++)
+  {
+    digitalWrite(a[i], LOW);
+    digitalWrite(b[i], LOW);
+    digitalWrite(c[i], HIGH);
+    digitalWrite(d[i], LOW);
+    digitalWrite(e[i], LOW);
+    digitalWrite(f[i], LOW);
+  }
+  delay(1250);
+  
+  for (i = 0; i < 2; i++)
+  {
+    digitalWrite(a[i], LOW);
+    digitalWrite(b[i], LOW);
+    digitalWrite(c[i], LOW);
+    digitalWrite(d[i], HIGH);
+    digitalWrite(e[i], LOW);
+    digitalWrite(f[i], LOW);
+  }
+  delay(1250);
+  
+  for (i = 0; i < 2; i++)
+  {
+    digitalWrite(a[i], LOW);
+    digitalWrite(b[i], LOW);
+    digitalWrite(c[i], LOW);
+    digitalWrite(d[i], LOW);
+    digitalWrite(e[i], HIGH);
+    digitalWrite(f[i], LOW);
+  }
+  delay(1250);
+  
+  for (i = 0; i < 2; i++)
+  {
+    digitalWrite(a[i], LOW);
+    digitalWrite(b[i], LOW);
+    digitalWrite(c[i], LOW);
+    digitalWrite(d[i], LOW);
+    digitalWrite(e[i], LOW);
+    digitalWrite(f[i], HIGH);
+  }
+  delay(1250);
+  
+  for (i = 0; i < 2; i++)
+  {
+    digitalWrite(a[i], LOW);
+    digitalWrite(b[i], LOW);
+    digitalWrite(c[i], LOW);
+    digitalWrite(d[i], LOW);
+    digitalWrite(e[i], HIGH);
+    digitalWrite(f[i], LOW);
+  }
+  delay(1250);
+  
+   for (i = 0; i < 2; i++)
+  {
+    digitalWrite(a[i], LOW);
+    digitalWrite(b[i], LOW);
+    digitalWrite(c[i], LOW);
+    digitalWrite(d[i], HIGH);
+    digitalWrite(e[i], LOW);
+    digitalWrite(f[i], LOW);
+  }
+  delay(1250);
+  
+  for (i = 0; i < 2; i++)
+  {
+    digitalWrite(a[i], LOW);
+    digitalWrite(b[i], LOW);
+    digitalWrite(c[i], HIGH);
+    digitalWrite(d[i], LOW);
+    digitalWrite(e[i], LOW);
+    digitalWrite(f[i], LOW);
+  }
+  delay(1250);
+  
+  for (i = 0; i < 2; i++)
+  {
+    digitalWrite(a[i], LOW);
+    digitalWrite(b[i], HIGH);
+    digitalWrite(c[i], LOW);
+    digitalWrite(d[i], LOW);
+    digitalWrite(e[i], LOW);
+    digitalWrite(f[i], LOW);
+  }
+  delay(1250);
+
+}
