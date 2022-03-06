@@ -1,0 +1,1 @@
+Robodify was a 2 day contest held by NIT, Durgapur, that I participated in on the 5th and 6th of March. I ranked third in the prelims round. Although I didn't win, it was an awesome learning experience and helped me better and brush up on my Arduino skills.
