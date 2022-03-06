@@ -1,0 +1,91 @@
+https://www.tinkercad.com/things/dI08AWYFzhs-copy-of-question-2-solution/editel?tenant=circuits
+
+
+#include<Servo.h>
+#include<math.h>
+
+Servo Myservo;
+const int p1=A0, p2=A1, p3=A2, p4=A3;
+const int set = 8, recheck = 9;
+const int servoPin = 3,red= 4, green= 6, blue= 5, buzzer = 7;
+int pos=0,setCount,setVal;
+int pos1,pos2,pos3,pos4;
+int npos1,npos2,npos3,npos4;
+
+int checkinRange()  // To check 15 degree angle eitherway
+{
+  if(abs(npos1-pos1) <=15 && abs(npos2-pos2) <=15 && abs(npos3-pos3) <=15 && abs(npos4-pos4) <=15)
+    return 1;
+  else
+    return 0;
+}
+
+void setup()
+{
+  Serial.begin(9600);
+  Myservo.attach(servoPin);
+  pinMode(red,OUTPUT);
+  pinMode(green,OUTPUT);
+  pinMode(blue,OUTPUT);
+  pinMode(set,INPUT);
+  pinMode(recheck,INPUT);
+  pinMode(p1,INPUT);
+  pinMode(p2,INPUT);
+  pinMode(p3,INPUT);
+  pinMode(p4,INPUT);
+  setCount = 0;
+  Myservo.write(0);
+}
+
+void loop()
+{
+  while(setCount==0)
+  {
+    pos1 = analogRead(p1);
+    pos1 = map(pos1,0,1023,0,300);
+    pos2 = analogRead(p2);
+    pos2 = map(pos2,0,1023,0,300);
+    pos3 = analogRead(p3);
+    pos3 = map(pos3,0,1023,0,300);
+    pos4 = analogRead(p4);
+    pos4 = map(pos4,0,1023,0,300);
+    
+    if(digitalRead(set)== HIGH)
+    {
+      setCount++;
+      delay(200);
+    }
+  }
+
+  delay(100);
+  //NOW PASSWORD HAS BE SETTED SUCCESSFULLY.
+  
+  if(digitalRead(recheck) == HIGH)
+  {
+    npos1 = analogRead(p1);
+    npos1 = map(npos1,0,1023,0,300);
+    npos2 = analogRead(p2);
+    npos2 = map(npos2,0,1023,0,300);
+    npos3 = analogRead(p3);
+    npos3 = map(npos3,0,1023,0,300);
+    npos4 = analogRead(p4);
+    npos4 = map(npos4,0,1023,0,300);
+    if(checkinRange() == 0)			//If password doesn'tmatches
+    {								//Red led+buzzer for 2 seconds
+      digitalWrite(red,HIGH);
+      digitalWrite(buzzer,HIGH);
+      delay(2000);
+      digitalWrite(red,LOW);
+      digitalWrite(buzzer,LOW);
+    }
+    else							//If password matches
+    {								//Gate opeens with green LED
+      digitalWrite(green,HIGH);
+      Myservo.write(180);
+      delay(5000);
+      digitalWrite(green,LOW);
+      Myservo.write(0);
+    }
+  }
+  delay(10);
+}
