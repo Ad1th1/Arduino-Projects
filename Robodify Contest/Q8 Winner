@@ -1,0 +1,41 @@
+https://www.tinkercad.com/things/gQpfCumy5sx-copy-of-question-8-solution/editel?tenant=circuits
+
+//FIRST 5 SECONDS- INPUT
+//NEXT 5 SECONDS- OUTPUT
+
+
+const int led[]={9,8,7,6,5,4,3};
+int buttonState = 0;
+const int button=2;
+void setup()
+{
+  for(int i=0;i<7;i++)
+    pinMode(led[i],OUTPUT);
+  pinMode(button, INPUT);
+  pinMode(LED_BUILTIN, OUTPUT);
+}
+
+void loop()
+{
+  int t;
+  t=0;
+  int presscount=0;
+  while(t<500)				// Takes press input for 5 seconds
+  {
+    buttonState = digitalRead(button);
+    if (buttonState == HIGH) 
+    {
+      presscount++;
+      while(digitalRead(button) == HIGH)
+      {
+        t++;
+        delay(10);
+      }
+    } 
+    t++;
+    delay(10);
+  }
+  digitalWrite(led[presscount-1],HIGH);
+  delay(5000);			//Turns on LED for 5 seconds
+  digitalWrite(led[presscount-1],LOW);
+}
