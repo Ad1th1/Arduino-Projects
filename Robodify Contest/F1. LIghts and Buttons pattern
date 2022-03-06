@@ -1,0 +1,157 @@
+https://www.tinkercad.com/things/0rbbu3zncVN-finale-q1/editel
+
+int led[] = {6,7,8,9,10,11,12,13};
+int rt[] = {6,7,8,9};
+int lt[] = {10,11,12,13};
+int a[] = {6,13};
+int b[] = {7,12};
+int c[] = {8,11};
+int d[] = {9,10};
+const int leftb = 4;
+const int rightb = 2;
+const int midb = 3;
+int leftb_state = 0; 
+int rightb_state = 0; 
+int midb_state = 0; 
+
+
+void setup()
+{
+  pinMode(leftb, INPUT);
+  pinMode(rightb, INPUT);
+  pinMode(midb, INPUT);
+  
+  for (int j = 0; j < 8; j++)
+  {
+    pinMode(led[j], OUTPUT);
+    
+  }
+}
+
+void right(){
+  for (int i = 0; i < 8; i++)
+  {
+    digitalWrite(led[i], LOW);
+    
+  }
+  for(int i=0;i<4;i++)
+  digitalWrite(lt[i], HIGH); 
+  delay(1000);
+  for(int i=0;i<4;i++)
+  digitalWrite(lt[i], LOW); 
+}
+
+void left(){
+   for (int i = 0; i < 8; i++)
+  {
+    digitalWrite(led[i], LOW);
+    
+  }
+  for(int i=0;i<4;i++)
+  digitalWrite(rt[i], HIGH); 
+  delay(1000);
+  for(int i=0;i<4;i++)
+  digitalWrite(rt[i], LOW); 
+}
+
+void mid(){
+   int i;
+
+  for (i = 0; i < 2; i++)
+  {
+    digitalWrite(a[i], HIGH);
+    digitalWrite(b[i], LOW);
+    digitalWrite(c[i], LOW);
+    digitalWrite(d[i], LOW);
+
+  }
+  delay(500);
+
+  for (i = 0; i < 2; i++)
+  {
+    digitalWrite(a[i], LOW);
+    digitalWrite(b[i], HIGH);
+    digitalWrite(c[i], LOW);
+    digitalWrite(d[i], LOW);
+  
+  }
+  delay(1250);
+  
+  for (i = 0; i < 2; i++)
+  {
+    digitalWrite(a[i], LOW);
+    digitalWrite(b[i], LOW);
+    digitalWrite(c[i], HIGH);
+    digitalWrite(d[i], LOW);
+  
+  }
+  delay(500);
+  
+  for (i = 0; i < 2; i++)
+  {
+    digitalWrite(a[i], LOW);
+    digitalWrite(b[i], LOW);
+    digitalWrite(c[i], LOW);
+    digitalWrite(d[i], HIGH);
+
+  }
+  delay(1250);
+  
+
+  for (i = 0; i < 2; i++)
+  {
+    digitalWrite(a[i], LOW);
+    digitalWrite(b[i], LOW);
+    digitalWrite(c[i], HIGH);
+    digitalWrite(d[i], LOW);
+
+  }
+  delay(500);
+  
+  for (i = 0; i < 2; i++)
+  {
+    digitalWrite(a[i], LOW);
+    digitalWrite(b[i], HIGH);
+    digitalWrite(c[i], LOW);
+    digitalWrite(d[i], LOW);
+
+  }
+  delay(500);
+  
+  for (int i = 0; i < 8; i++)
+  {
+    digitalWrite(led[i], LOW);
+    
+  }
+  
+  for(int i=0;i<2;i++){
+  	digitalWrite(a[i], HIGH);
+  }
+}
+
+void loop(){
+
+  for(int i=0;i<2;i++){
+  	digitalWrite(a[i], HIGH);
+  }
+  
+  
+    leftb_state = digitalRead(leftb);
+    rightb_state = digitalRead(rightb);
+	midb_state = digitalRead(midb);
+
+  if (leftb_state == LOW && rightb_state == HIGH && midb_state==HIGH) {
+    left();
+  }
+  if (leftb_state == HIGH && rightb_state == LOW && midb_state == HIGH) {
+
+    right();
+  }
+  if (leftb_state == HIGH && rightb_state == HIGH && midb_state==LOW) {
+ 	for(int i=0;i<2;i++)
+  		digitalWrite(a[i], LOW);
+    mid();
+  }
+  
+
+}
