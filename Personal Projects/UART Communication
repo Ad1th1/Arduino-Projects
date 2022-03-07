@@ -1,0 +1,33 @@
+UART Code
+
+//sender
+char ip;
+void setup()  
+{
+  Serial.begin(9600);
+  Serial1.begin(9600);
+}
+void loop()  
+{
+
+    Serial1.write("at last \n");   //writing to receiver
+   
+}
+
+//receiver
+void setup()  
+{
+  Serial.begin(9600);
+  Serial1.begin(9600);
+}
+void loop()  
+{
+ if (Serial1.available())
+  {
+    ip=Serial1.read();
+    Serial.print(ip);
+  }
+}
+
+
+# The code didn't run for a long time because I connected to TX0 and RX0. Then we used the Softserial library. We realized that we didn't need to use this library as we had enough RX/TX pins. We then wrote our code using Serial and Serial1. We took a while to figure out a bug in our code.
