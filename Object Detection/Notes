@@ -1,0 +1,28 @@
+Localization is finding what and where an object exists in an image
+
+Object Detection is finding what and where multiple object exist in an image
+
+For localization, we need at least 4 more points to define a bounding box
+Two common ways:
+  1. Upper left and bottom right corners
+  2. 2 corner points, height and width of the image
+  
+Sliding window
+  Disadvantages:
+  -lots of computation
+  - many bounding boxes for the same object
+  
+Regional based networks R-CNN
+- very tricky to implement
+- slow, complicated 2 step process
+
+YOLO algorithm
+- split into a 7 by 7 grid
+- every cell is responsible for predicting a bounding box
+- 4 papers on yolo
+
+Target Predicted bounding box
+  - Intersection over union approach
+  
+  
+
