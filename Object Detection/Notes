@@ -45,7 +45,28 @@ When object has multiple bounding boxes, find the box with best IOU;
   - do the same for all other boxes
   
 
-
+Mean Average Precision:
+  1. Get all bounding-box predictions on the test-set
+  2. Sort by descending confidence score
+  3. Calculate precision and recall as you go through all bb's
+  4. Plot precision-recall graph
+  
+  true-positive = bbox that shares an iou > 0.5 with a bounding box
+  false-negative = didn't output a bbox for a target bbox
+  true-negative = didn't output a bbox that wasn't there => not present in this case
+  false-positive = incorrect bbox
+  
+  precision = (true +ve)/(true +ve + false +ve)
+    ~ of all bbox predictions made, how many are actually correct
+  
+  recall = (true +ve)/(true +ve + false -ve)
+    ~ correct bb/total no of bb
+    ~ of all target bb's which one did we detect correctly
+    
+   battle between precision and recall
+   Eg: 
+   
+  
   
  
 
