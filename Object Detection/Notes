@@ -37,5 +37,15 @@ Target Predicted bounding box
 Cleaning up bounding-boxes using non-max supression
   - finding the best out of all the bounding boxes by comparing all of their iou's
   
+Non-max supression:
   
+When object has multiple bounding boxes, find the box with best IOU;
+  - then find IOU of that box with other boxes = IOU2
+  - if IOU2 is greater than some threshold, remove that box from the picture
+  - do the same for all other boxes
+  
+
+
+  
+ 
 
