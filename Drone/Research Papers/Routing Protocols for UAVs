@@ -1,0 +1,15 @@
+https://dl.acm.org/doi/pdf/10.1145/3023924.3023931
+
+> three routing protocols, DSDV, DSR and AODV, are studied.
+> The paparazzi mobility model is selected because it is similar to the reality movement of UAVs
+> Four performance metrics, i.e. packet delivery ratio (PDR), end-to-end delay, throughput, and routing overhead are compared.
+> Network simulator version 2 (NS2) is used in this work because it is well known for network studies
+
+> DSDV = Destination Sequenced Distance Vector is a table-driven routing protocol with slight modification for ad hoc networks
+
+> AODV = Ad-hoc On-Demand Distance Vector is adapted from DSDV due to the disadvantage of DSDV that a node broadcasts update packets periodically and the network bandwidth is wasted with routing overheads
+
+> DSR = Dynamic Source Routing (DSR) is a fully on-demand routing protocol which looks for a route when a source needs to send data. If there is a route to a destination in a route cache and still fresh, the data will be sent out using this route.
+
+> DSDV is a fully Table Driven protocol, DSR is a fully Ondemand and AODV is an on-demand protocol which has some
+features like DSDV.
