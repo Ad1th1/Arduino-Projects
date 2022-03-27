@@ -1,0 +1,207 @@
+/*Code for movement, angle changing and shooting
+ * Will update this whenever the grippers are mounted
+ */
+#include <math.h>
+int dd[] = {true, true, false, true};
+#include <SoftwareSerial.h>
+#include <Cytron_PS2Shield.h>
+#include <Servo.h>
+int stepr = 50;
+Cytron_PS2Shield ps2(0, 1);
+int c = 0;
+int pwm[] = {9, 11, 6, 10}; int dir[] = {5, 8, 4, 7};   
+int i, x, y;
+float v[4], vx, vy;
+float p, ang;
+int relay = 31;
+int d_step = 500;
+int direc = 29, stepp = 2;
+void setup()
+{
+  pinMode(relay, OUTPUT);
+  pinMode(direc, OUTPUT);
+  pinMode(stepp, OUTPUT);
+  pinMode(13, OUTPUT);
+  for (i = 0; i < 4; i++)
+  {
+    pinMode(dir[i], OUTPUT);
+    pinMode(pwm[i], OUTPUT);
+  }
+  ps2.begin(115200);
+  digitalWrite(relay, HIGH);
+}
+void off()
+{
+  digitalWrite(13,LOW);
+  digitalWrite(direc, LOW);
+  for (int i = 0; i < 0; i++)
+  {
+    digitalWrite(stepp, HIGH);
+    delayMicroseconds(d_step);
+    digitalWrite(stepp, LOW);
+    delayMicroseconds(d_step);
+    delay(1);
+  }
+  for (i = 0; i < 4; i++)
+  {
+    analogWrite(pwm[i], 0);
+  }
+  
+}
+void mover(float pp, float angg)
+{
+  vx = pp * sin((M_PI / 180) * angg);
+  vy = pp * cos((M_PI / 180) * angg);
+  v[0] = vx * sin(M_PI / 180 * 315) + vy * cos(M_PI / 180 * 315 );
+  v[1] = vx * sin(M_PI / 180 * 45 ) + vy * cos(M_PI / 180 * 45);
+  v[2] = (vx * sin(M_PI / 180 * 135)) + (vy * cos(M_PI / 180 * 135 ));
+  v[3] = vx * sin(M_PI / 180 * 225 ) + vy * cos(M_PI / 180 * 225 );
+  for (i = 0; i < 4; i++)
+  {
+    if (v[i] < 0)
+    {
+      digitalWrite(dir[i], !dd[i]);
+      //      Serial.println(!dd[i]);
+      v[i] = -v[i];
+    }
+    else
+    {
+      digitalWrite(dir[i], dd[i]);
+      //      Serial.println(dd[i]);
+    }
+    analogWrite(pwm[i], v[i]);
+    //    Serial.println(v[i]);
+  }
+}
+void rotate(float pp,float angg)
+{
+ vx = pp * sin((M_PI / 180) * angg);
+  vy = pp * cos((M_PI / 180) * angg);
+  v[0] = vx * sin(M_PI / 180 * 315) + vy * cos(M_PI / 180 * 315 );
+  v[1] = vx * sin(M_PI / 180 * 45 ) + vy * cos(M_PI / 180 * 45);
+  v[2] = (vx * sin(M_PI / 180 * 135)) + (vy * cos(M_PI / 180 * 135 ));
+  v[3] = vx * sin(M_PI / 180 * 225 ) + vy * cos(M_PI / 180 * 225 );
+  for (i = 0; i < 4; i++)
+  {
+    if (v[i] < 0)
+    {
+      digitalWrite(dir[i], !dd[i]);
+      //      Serial.println(!dd[i]);
+      v[i] = -v[i];
+      if(i==2 || i==3)
+      digitalWrite(dir[i], dd[i]);
+    }
+    else
+    {
+      digitalWrite(dir[i], dd[i]);
+      if(i==2 || i==3)
+      digitalWrite(dir[i], !dd[i]);
+      //      Serial.println(dd[i]);
+    }
+    analogWrite(pwm[i], v[i]);
+    //    Serial.println(v[i]);    
+  } 
+}
+void base()
+{
+  digitalWrite(direc, HIGH);
+  for (int i = 0; i < c; i++)
+  {
+    digitalWrite(stepp, HIGH);
+    delayMicroseconds(d_step);
+    digitalWrite(stepp, LOW);
+    delayMicroseconds(d_step);
+    delay(1);
+    c--;
+    if (c == 0)
+      break;
+  }
+  for (int i = 0; i < 0; i++)
+  {
+    digitalWrite(stepp, HIGH);
+    delayMicroseconds(d_step);
+    digitalWrite(stepp, LOW);
+    delayMicroseconds(d_step);
+    delay(1);
+  }
+}
+void loop()
+{
+  if (ps2.readButton(PS2_UP) == 0)
+  {
+    mover(200, 0);
+  }
+  if (ps2.readButton(PS2_LEFT) == 0)
+  {
+    mover(200, 90);
+  }
+  if (ps2.readButton(PS2_DOWN) == 0)
+  {
+    mover(200, 180);
+  }
+  if (ps2.readButton(PS2_RIGHT) == 0)
+  {
+    mover(200, 270);
+  }
+  if (ps2.readButton(PS2_TRIANGLE) == 0)
+  {
+    digitalWrite(direc, LOW);
+    for (int i = 0; i < stepr; i++)
+    {
+      digitalWrite(stepp, HIGH);
+      delayMicroseconds(d_step);
+      digitalWrite(stepp, LOW);
+      delayMicroseconds(d_step);
+      delay(1);
+      c++;
+    }
+  }
+
+  if (ps2.readButton(PS2_CROSS) == 0)
+  {
+    digitalWrite(direc, HIGH);
+    for (int i = 0; i < stepr; i++)
+    {
+
+      digitalWrite(stepp, HIGH);
+      delayMicroseconds(d_step);
+      digitalWrite(stepp, LOW);
+      delayMicroseconds(d_step);
+      delay(1);
+      c--;
+    }
+  }
+  if (ps2.readButton(PS2_CIRCLE) == 0)
+  {
+      rotate(200, 270);
+  }
+  if (ps2.readButton(PS2_SQUARE) == 0)
+  {
+    rotate(200, 90);
+  }
+  if (ps2.readButton(PS2_SELECT) == 0)
+  {
+    digitalWrite(relay,LOW);
+    digitalWrite(13,LOW);
+//    Serial.println("Relay LOW");
+  }
+////  if (ps2.readButton(PS2_LEFT_1) == 0)
+////  {
+////    digitalWrite(relay,HIGH);
+////    digitalWrite(13,HIGH);
+////    Serial.println("Relay HIGH");
+//  }
+  if (ps2.readButton(PS2_START) == 0)
+  {
+    digitalWrite(relay,HIGH);
+//    base();
+    digitalWrite(13,HIGH);
+//    delay(1000);
+//    digitalWrite(13,LOW);
+//    delay(1000);
+  }
+  if (ps2.readButton(PS2_UP) == 1 && ps2.readButton(PS2_DOWN) == 1 && ps2.readButton(PS2_LEFT) == 1 && ps2.readButton(PS2_RIGHT) == 1 && ps2.readButton(PS2_CIRCLE) == 1 && ps2.readButton(PS2_SQUARE) == 1&& ps2.readButton(PS2_SELECT) == 1&& ps2.readButton(PS2_START) == 1)
+  {
+    off();
+  }
+}
