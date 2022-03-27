@@ -1,0 +1,241 @@
+
+#include <math.h>
+int dd[] = {true,false,false,false};
+#include <SoftwareSerial.h>
+#include <Cytron_PS2Shield.h>
+Cytron_PS2Shield ps2(0, 1);
+//#include <Stepper.h>
+int d_step = 1000;  //4000 doesn't work
+//int direc = 8, stepp = 9;  //stepp is 
+int c = 0;
+int pwm[] = {6, 9, 10, 11}; 
+int dir[] = {4, 5, 7, 8};
+int i, x, y;
+float p, ang;
+float v[4], vx, vy;
+int j = 0;
+int stepr= 200; 
+
+
+void setup() {
+  // put your setup code here, to run once:
+for (i = 0; i < 4; i++)
+  {
+    pinMode(dir[i], OUTPUT);
+    pinMode(pwm[i], OUTPUT);
+  }
+  pinMode(direc,OUTPUT);
+  pinMode(stepp,OUTPUT);
+  ps2.begin(115200);
+  //digitalWrite(relay, HIGH);
+  
+//  Serial.be/gin(9600);  //uses the same pins as ps2
+//  delay(200/0);
+}
+void mover(float pp, float angg)
+{
+  vx = pp * sin((M_PI / 180) * angg);
+  vy = pp * cos((M_PI / 180) * angg);
+  v[0] = -vx * sin(M_PI / 180 * 315) + vy * cos(M_PI / 180 * 315 );
+  v[1] = -vx * sin(M_PI / 180 * 45 ) + vy * cos(M_PI / 180 * 45);
+  v[2] = -vx * sin(M_PI / 180 * 135) + (vy * cos(M_PI / 180 * 135 ));
+  v[3] = -vx * sin(M_PI / 180 * 225 ) + vy * cos(M_PI / 180 * 225 );
+  for (i = 0; i < 4; i++)
+  {
+    if (v[i] < 0)
+    {
+      digitalWrite(dir[i], !dd[i]);
+      //      Serial.println(!dd[i]);
+      v[i] = -v[i];
+    }
+    else
+    {
+      digitalWrite(dir[i], dd[i]);
+      //      Serial.println(dd[i]);
+    }
+    analogWrite(pwm[i], v[i]);
+    //    Serial.println(v[i]);
+  }
+}
+void rotate(float pp,float angg)
+{
+ vx = pp * sin((M_PI / 180) * angg);
+  vy = pp * cos((M_PI / 180) * angg);
+  v[0] = vx * sin(M_PI / 180 * 315) + vy * cos(M_PI / 180 * 315 );
+  v[1] = vx * sin(M_PI / 180 * 45 ) + vy * cos(M_PI / 180 * 45);
+  v[2] = (vx * sin(M_PI / 180 * 135)) + (vy * cos(M_PI / 180 * 135 ));
+  v[3] = vx * sin(M_PI / 180 * 225 ) + vy * cos(M_PI / 180 * 225 );
+  for (i = 0; i < 4; i++)
+  {
+    if (v[i] < 0)
+    {
+      digitalWrite(dir[i], !dd[i]);
+      //      Serial.println(!dd[i]);
+      v[i] = -v[i];
+      if(i==2 || i==3)
+      digitalWrite(dir[i], dd[i]);
+    }
+    else
+    {
+      digitalWrite(dir[i], dd[i]);
+      if(i==2 || i==3)
+      digitalWrite(dir[i], !dd[i]);
+      //      Serial.println(dd[i]);
+    }
+    analogWrite(pwm[i], v[i]);
+    //    Serial.println(v[i]);
+
+    
+  } 
+}
+
+void stepper1_close()  //parallel grippers 
+{
+  digitalWrite(direc, HIGH);
+
+      for (int i = 0; i < stepr; i++)
+      {
+
+        digitalWrite(stepp, HIGH);
+        delayMicroseconds(d_step);  //hence stopping at that angle
+        digitalWrite(stepp, LOW);
+        delayMicroseconds(d_step);
+        delay(1);
+
+      }
+}
+
+void stepper1_open()  //parallel grippers 
+{
+  digitalWrite(direc, LOW);
+
+      for (int i = 0; i < stepr; i++)
+      {
+
+        digitalWrite(stepp, HIGH);
+        delayMicroseconds(d_step);  //hence stopping at that angle
+        digitalWrite(stepp, LOW);
+        delayMicroseconds(d_step);
+        delay(1);
+
+      }
+}
+
+//
+//void stepper2_close()  //angular gripper
+//{
+// for (int i = 0; i < stepr; i++)
+//      {
+//
+//        digitalWrite(stepp, HIGH);
+//        delayMicroseconds(d_step);  //hence stopping at that angle
+//        digitalWrite(stepp, LOW);
+//        delayMicroseconds(d_step);
+//        delay(1);
+//
+//      } 
+//}
+//
+//void stepper3_open()  //height changing
+//{
+// for (int i = 0; i < stepr; i++)
+//      {
+//
+//        digitalWrite(stepp, HIGH);
+//        delayMicroseconds(d_step);  //hence stopping at that angle
+//        digitalWrite(stepp, LOW);
+//        delayMicroseconds(d_step);
+//        delay(1);
+//
+//      } 
+//}
+//
+//void stepper3_close()  //height_changing
+//{
+// for (int i = 0; i < stepr; i++)
+//      {
+//
+//        digitalWrite(stepp, HIGH);
+//        delayMicroseconds(d_step);  //hence stopping at that angle
+//        digitalWrite(stepp, LOW);
+//        delayMicroseconds(d_step);
+//        delay(1);
+//
+//      } 
+//}
+//
+//void stepper4_open()  //back_3_grippers
+//{
+// for (int i = 0; i < stepr; i++)
+//      {
+//
+//        digitalWrite(stepp, HIGH);
+//        delayMicroseconds(d_step);  //hence stopping at that angle
+//        digitalWrite(stepp, LOW);
+//        delayMicroseconds(d_step);
+//        delay(1);
+//
+//      } 
+//}
+//
+//void stepper4_close()  //back_3_grippers
+//{
+// for (int i = 0; i < stepr; i++)
+//      {
+//
+//        digitalWrite(stepp, HIGH);
+//        delayMicroseconds(d_step);  //hence stopping at that angle
+//        digitalWrite(stepp, LOW);
+//        delayMicroseconds(d_step);
+//        delay(1);
+//
+//      } 
+//}
+
+
+
+void loop() {
+  // put your main code here, to run repeatedly:
+{
+  //90 is left
+  
+  if (ps2.readButton(PS2_UP) == 0)
+  {
+    mover(200, 0);
+    //Serial.println("Forward");
+  }
+  if (ps2.readButton(PS2_LEFT) == 0)
+  {
+    mover(200, 270);
+    //Serial.println("LEFT");      //been configured accordingly 
+  }
+  if (ps2.readButton(PS2_DOWN) == 0)
+  {
+    mover(200, 180);
+    //Serial.println("BACK");
+  }
+  if (ps2.readButton(PS2_RIGHT) == 0)
+  {
+    mover(200, 90);
+    //Serial.println("RIGHT");
+  }
+  if (ps2.readButton(PS2_CIRCLE) == 0)
+  {
+      rotate(100, 270);
+  }
+  if (ps2.readButton(PS2_SQUARE) == 0)
+  {
+    rotate(100, 90);
+  }
+  if (ps2.readButton(PS2_UP) == 1 && ps2.readButton(PS2_DOWN) == 1 && ps2.readButton(PS2_LEFT) == 1 && ps2.readButton(PS2_RIGHT) == 1&& ps2.readButton(PS2_CIRCLE) == 1&& ps2.readButton(PS2_SQUARE) == 1)
+  {
+    mover(0, 0);
+  }
+  if (ps2.readButton(PS2_TRIANGLE)==0){
+    stepper1_close();
+  }
+  if (ps2.readButton(PS2_CROSS)==0){
+    stepper1_open();
+  }
+}
+}
