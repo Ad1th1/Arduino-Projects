@@ -1,1 +1,17 @@
 -> The best time to learn Git was yesterday (lol)
+-> Git = world's most popular version control system
+
+-> version control = software that tracks and manahes changes to file over time
+                   = allow users to revisit file versions, compare and undo changes
+                   = other examples -> Subversion
+     
+Difference between Git and Github
+Git
+  ~ version control software 
+  ~ runs locally on machine
+  ~ don't need the Internet
+  
+Github
+  ~  service that hosts Git repos in the cloud
+  ~ makes collab easier
+  
