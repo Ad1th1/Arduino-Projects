@@ -79,4 +79,11 @@ Train a CNN:
          = used for smaller data-set
          
          
-         
+ -> image is a tensor between 0-255
+ -> 3 color channels = RGB
+ 
+ -> Image Classification 
+ 
+ -> MNIST = Modified National Institute of Standards and Technology
+      
+ 
