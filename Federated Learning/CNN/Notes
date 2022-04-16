@@ -64,3 +64,19 @@ Train a CNN:
               = sees patterns over time
 
 -> Python and TensorFlow are great tools to begin with
+
+-> Tensorflow = open source ml library used to build large-scale applications in ml and dl
+              = written in c++
+              = creates computational graph and is later executed by passing input values
+                 ie: we create a graph and pass multi-dimensional vectors(tensor) as input. these tensors flow through the graph to give the output
+              = faster and light-weight
+              = has large community
+              
+-> Keras = higher level API that can be run on top of Tensorflow
+         = very easy 
+         = written in Python
+         = used for rapid prototyping
+         = used for smaller data-set
+         
+         
+         
