@@ -1,0 +1,66 @@
+MNIST = database of handwritten digits that is commonly used for training various image processing systems.
+
+CNN 
+  ~ Convolutional Neural Network
+  ~ super important in DL and ML
+  ~ applied to image processing problems
+  ~ can be used in NLP projects too
+  ~ treat data as spatial
+
+A regular neural network 
+      ~ has an input layer, a hidden layer and an output layer
+      ~ input layer = accepts inputs
+      ~ hidden layer = performs calculations on inputs
+      ~ output layer = delivers outcome
+      ~ contains neuros connected to those in previous layer
+      ~ each neuron has weights
+      
+CNN is different 
+    ~ it treats data as spatial 
+    ~ neurons are connected to neurons close to it and all have the same weight
+    
+Convolutional = filtering process
+      
+      
+CNN architecture = has multiple layers 
+-> Convolutional layer = unique
+      ~ places a filter over an array of image pixels
+      ~ creates a convolved feature map = look at an image through window
+      
+-> Pooling layer = unique
+      ~ reduces sample-size of a particular feature-map
+      ~ makes processing much faster ~> reduces number of parameters
+      ~ output is a pooled feature map
+      ~ max pooling = takes max input of a particular convolved feature
+      ~ average pooling = takes the average
+      ~ amounts to feauture extraction -> network builds up a picture of the image data according to mathematical rules
+                
+-> RELu layer (rectified linear unit layer) 
+      ~ activation function
+      ~ ensures non-linearity as data moves through each layer in the network
+      ~ to maintain dimensionality of data as it moves through layers
+      
+-> fully connected layer 
+      ~ allows me to perform classification on the dataset
+      ~ needs flattening
+      ~ complex neural network can only processs linear data
+
+Train a CNN:
+-> for unlabelled data, we can use unsupervised learning methods
+      ~ use auto-encoders to squeeze data in a space with low dimensions, perform calcultions on the first part of the CNN 
+      ~ then reconstruct with additional layers to upsample the data 
+
+-> use generative adversarial networks or GAN's
+      ~ train 2 networks
+          1) Artificial data samples that should resemble data in the training set
+          2) Discriminative Network ~ should distinguish between the artificial and true model
+     
+-> difference between CNN and RNN(recurrent neural network)
+        ~ CNN = feed-forward network thar filters spatial data
+              = perceives patterns across space
+              
+        ~ RNN = feeds data back into itself
+              = better suited for sequential data
+              = sees patterns over time
+
+-> Python and TensorFlow are great tools to begin with
