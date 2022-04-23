@@ -1,0 +1,10 @@
+#!/bin/bash
+
+echo "Enter two numbers"
+read fir sec
+echo $(($fir + $RANDOM % $sec))
+
+
+
+
+
