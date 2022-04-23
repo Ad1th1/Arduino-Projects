@@ -1,7 +1,9 @@
 To - do List
  1. CAD'S
- 2. Simulate on Gazebo
- 3. Open CV functionalities
- 4. Networking functionalities
- 5. Hardware decisions
+ 2. Frame and Structure
+ 3. CNC Lathe
+ 4. Simulate on Gazebo
+ 5. AI Software
+ 6. Networking Aspect
+
  
