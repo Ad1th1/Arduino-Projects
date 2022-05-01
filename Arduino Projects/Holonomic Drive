@@ -1,0 +1,80 @@
+//move a holonomic drive with omni wheels in any direction and rotates it
+
+int Dir[] = {4,5,6,7};
+int Spe[] = {8,9,10,11};
+int SpeedVal = 100;
+int i;
+
+void setup(){
+  for (int i = 0; i < 4; i++) {
+    pinMode(Dir[i], OUTPUT);
+    pinMode(Spe[i], OUTPUT);
+  }
+ 
+  }
+
+void 0(){
+  for (int i = 0; i < 4; i=i+3) {
+    
+    digitalWrite(Dir[i], LOW);
+    analogWrite(Spe[i],SpeedVal);
+  }
+  for (int i = 1; i < 3; i=i+1) {
+   
+ 
+    digitalWrite(Dir[i], HIGH);
+    analogWrite(Spe[i],SpeedVal);
+  }
+}
+
+void 180(){
+  for (int i = 0; i < 4; i=i+3) {
+    
+    digitalWrite(Dir[i], HIGH);
+    analogWrite(Spe[i],SpeedVal);
+  }
+  for (int i = 1; i < 3; i=i+1) {
+   
+ 
+    digitalWrite(Dir[i], LOW);
+    analogWrite(Spe[i],SpeedVal);
+  }
+}
+
+void 90(){
+for (int i = 0; i < 2; i=i+1) {
+    
+    digitalWrite(Dir[i], LOW);
+    analogWrite(Spe[i],SpeedVal);
+  }
+  for (int i = 2; i < 4; i=i+1) {
+   
+ 
+    digitalWrite(Dir[i], HIGH);
+    analogWrite(Spe[i],SpeedVal);
+  }
+  
+}
+
+void 270(){
+for (int i = 0; i < 2; i=i+1) {
+    
+    digitalWrite(Dir[i], HIGH);
+    analogWrite(Spe[i],SpeedVal);
+  }
+  for (int i = 2; i < 4; i=i+1) {
+   
+ 
+    digitalWrite(Dir[i], LOW);
+    analogWrite(Spe[i],SpeedVal);
+  }
+  
+}
+
+void loop(){
+  0();
+  90();
+  180();
+  270();
+  
+  }
