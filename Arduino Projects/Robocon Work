@@ -1,0 +1,174 @@
+// code written by Naman More
+// I have only debugged and compiled this code
+
+#include <math.h>
+int dd[] = {false, false, false, true};
+#include <SoftwareSerial.h>
+#include <Cytron_PS2Shield.h>
+Cytron_PS2Shield ps2(2, 3);
+int c = 0;
+int pwm[] = {6, 9, 10, 11}; int dir[] = {4, 5, 7, 8};
+int i, x, y;
+float p, ang;
+float v[4], vx, vy;
+int relay = 12;
+int d_step=100;
+int direc=A0,stepp=A1;
+void setup()
+{
+  for (i = 0; i < 4; i++)
+  {
+    pinMode(dir[i], OUTPUT);
+    pinMode(pwm[i], OUTPUT);
+  }
+  pinMode(relay, OUTPUT);
+  pinMode(direc,OUTPUT);
+  pinMode(stepp,OUTPUT);
+  ps2.begin(9600);
+  digitalWrite(relay, HIGH);
+  
+  Serial.begin(9600);
+  delay(2000);
+}
+void mover(float pp, float angg)
+{
+  vx = pp * sin((M_PI / 180) * angg);
+  vy = pp * cos((M_PI / 180) * angg);
+  v[0] = vx * sin(M_PI / 180 * 315) + vy * cos(M_PI / 180 * 315 );
+  v[1] = vx * sin(M_PI / 180 * 45 ) + vy * cos(M_PI / 180 * 45);
+  v[2] = (vx * sin(M_PI / 180 * 135)) + (vy * cos(M_PI / 180 * 135 ));
+  v[3] = vx * sin(M_PI / 180 * 225 ) + vy * cos(M_PI / 180 * 225 );
+  for (i = 0; i < 4; i++)
+  {
+    if (v[i] < 0)
+    {
+      digitalWrite(dir[i], !dd[i]);
+      //      Serial.println(!dd[i]);
+      v[i] = -v[i];
+    }
+    else
+    {
+      digitalWrite(dir[i], dd[i]);
+      //      Serial.println(dd[i]);
+    }
+    analogWrite(pwm[i], v[i]);
+    //    Serial.println(v[i]);
+  }
+}
+void rotate(float pp,float angg)
+{
+ vx = pp * sin((M_PI / 180) * angg);
+  vy = pp * cos((M_PI / 180) * angg);
+  v[0] = vx * sin(M_PI / 180 * 315) + vy * cos(M_PI / 180 * 315 );
+  v[1] = vx * sin(M_PI / 180 * 45 ) + vy * cos(M_PI / 180 * 45);
+  v[2] = (vx * sin(M_PI / 180 * 135)) + (vy * cos(M_PI / 180 * 135 ));
+  v[3] = vx * sin(M_PI / 180 * 225 ) + vy * cos(M_PI / 180 * 225 );
+  for (i = 0; i < 4; i++)
+  {
+    if (v[i] < 0)
+    {
+      digitalWrite(dir[i], !dd[i]);
+      //      Serial.println(!dd[i]);
+      v[i] = -v[i];
+      if(i==2 || i==3)
+      digitalWrite(dir[i], dd[i]);
+    }
+    else
+    {
+      digitalWrite(dir[i], dd[i]);
+      if(i==2 || i==3)
+      digitalWrite(dir[i], !dd[i]);
+      //      Serial.println(dd[i]);
+    }
+    analogWrite(pwm[i], v[i]);
+    //    Serial.println(v[i]);
+
+    
+  } 
+}
+void stepper(int x)
+{
+  if(x==1)
+  {
+    digitalWrite(direc,0);
+    digitalWrite(stepp,1);
+    delayMicroseconds(d_step);
+    digitalWrite(stepp,0);
+    delayMicroseconds(d_step);
+  }
+  if(x==2)
+  {
+    digitalWrite(direc,1);
+    digitalWrite(stepp,1);
+    delayMicroseconds(d_step);
+    digitalWrite(stepp,0);
+    delayMicroseconds(d_step);
+  }
+  if(x==0)
+  {
+    digitalWrite(direc,0);
+    digitalWrite(stepp,0);
+    delayMicroseconds(d_step);
+    digitalWrite(stepp,0);
+    delayMicroseconds(d_step);
+  }
+}
+void loop()
+{
+  //90 is left
+  if (ps2.readButton(PS2_TRIANGLE) == 0)
+  {
+    digitalWrite(relay,LOW);
+    Serial.println("Relay LOW");
+  }
+  if (ps2.readButton(PS2_CROSS) == 0)
+  {
+    digitalWrite(relay,HIGH);
+    Serial.println("Relay HIGH");
+  }
+  if (ps2.readButton(PS2_UP) == 0)
+  {
+    mover(100, 0);
+    Serial.println("Forward");
+  }
+  if (ps2.readButton(PS2_LEFT) == 0)
+  {
+    mover(100, 90);
+    Serial.println("LEFT");
+  }
+  if (ps2.readButton(PS2_DOWN) == 0)
+  {
+    mover(100, 180);
+    Serial.println("BACK");
+  }
+  if (ps2.readButton(PS2_RIGHT) == 0)
+  {
+    mover(100, 270);
+    Serial.println("RIGHT");
+  }
+  if (ps2.readButton(PS2_CIRCLE) == 0)
+  {
+      rotate(100, 270);
+  }
+  if (ps2.readButton(PS2_SQUARE) == 0)
+  {
+    rotate(100, 90);
+  }
+  if(ps2.readButton(PS2_SELECT)==0)
+  {
+    stepper(1);
+  }
+  if(ps2.readButton(PS2_START)==0)
+  {
+    stepper(2);
+  }
+  if(ps2.readButton(PS2_START)==1 && ps2.readButton(PS2_SELECT)==1)
+  {
+    stepper(0);
+  }
+  if (ps2.readButton(PS2_UP) == 1 && ps2.readButton(PS2_DOWN) == 1 && ps2.readButton(PS2_LEFT) == 1 && ps2.readButton(PS2_RIGHT) == 1&& ps2.readButton(PS2_CIRCLE) == 1&& ps2.readButton(PS2_SQUARE) == 1)
+  {
+    mover(0, 0);
+  }
+  
+}
