@@ -1,0 +1,20 @@
+PID: https://www.youtube.com/watch?v=wkfEZmsQqiA&list=PLn8PRpmsu08pQBgjxYFXSsODEF3Jqmm-y
+
+Feedback Controllers
+
+Open loop systems = not useful if we want accuracy
+input -> plant -> output
+
+plant = system we want to effect
+
+
+PID Controller
+PID = Proportional Integral Derivative
+tune the controller
+
+proportional control alone can create a steady-state error => Kp
+integral control = keeps memory of the past  => Ki
+derivative control = how fast is the error shrinking => Kd
+  -> looks at current rate of error change
+  -> determines how fast we are approaching our goal
+  -> 
