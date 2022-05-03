@@ -1,0 +1,11 @@
+-> goal of network layer => move datagram from source to destination
+-> one destination = unicast routing
+
+-> routers need forwarding tables 
+-> routers need forwarding tables to pass packets around
+
+-> distance vector routing -> RIP
+-> link-state routing -> OSPF
+-> path-vector routing
+
+-> Internet = internetwork of networks connected by routers
