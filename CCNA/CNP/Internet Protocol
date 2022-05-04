@@ -11,28 +11,30 @@ IP = Network Layer Protocol
    = header = 20 - 60 bytes in length = contains info necessary for routing and delivery
    
 IP datagram header
-VER(4 bits) Hlen(4 bits) DS(8 bits) | Total length(16 bits)
+VER(4 bits) Hlen(4 bits) Differentiated Services(8 bits) | Total length(16 bits)
 Identification(16 bits)             | Flags(3 bits) Fragmentation Offset(13 bits)
 TTL(8 bits) Protocol(8 bits)        | Header Checksum(16 bits)
 Source IP Address
 Destination IP Address
 Option
 
-Service types
-Type Of Service (TOS) bits are a set of four-bit flags in the IP header
-DTRC
-TOS-Bits
-1000      D: minimize delay 
-0100      T: maximize throughput 
-0010      R: maximize reliability
-0001      C: maximize cost
-0000      Normal(default)
+Differentiated Service
+   Service types
+   Type Of Service (TOS) bits are a set of four-bit flags in the IP header
+   DTRC
+   TOS-Bits
+   1000      D: minimize delay 
+   0100      T: maximize throughput 
+   0010      R: maximize reliability
+   0001      C: maximize cost
+   0000      Normal(default)
 
-The DS codepoint (DSCP) defines in the packet header the action that any Diffserv-aware system should take on a marked packet.
-Value for Codepoint
-XX0 = Internet
-X11 = Local
-X01 = Temporary or experimental
+
+   The DS codepoint (DSCP) defines in the packet header the action that any Diffserv-aware system should take on a marked packet.
+   Value for Codepoint
+   XX0 = Internet
+   X11 = Local
+   X01 = Temporary or experimental
 
 -> Precedence subfield was designed but never used in IPv4
 -> Total length field = Total length of data + header = minimum of 46 bytes
@@ -65,10 +67,43 @@ receiver is called multiplexing.
        -> for a parti
            
 ->  Options = max of 40 bytes
-     Format = Code(8 bits) Length(8 bits) Data(Variable length)
+     Format = Code(8 bits) Length(8 bits) Pointer(Variable length) O-FLow(4 bits) Flags(4 bits)
+              First IP Address
+              Second IP Address
+              .
+              .
+              .
+              Last IP Address
+              
         Code = Copy(1 bit) Class(2 bits) NUmber(5 bits)
+        if first bit is 1 = copy
+        bit 2 & 3: 00 => datagram control
+                   10 => debugging and management
+                   
         
+     Single Byte - no operation
+                 - end of option
+     Multiple-Byte - record route
+                   - strict source rout
+                   - loose source route
+                   - timestamp
+     NO op = used to beginning/end of option
        
        
+ Error detection method used by TCP/IP protocols = checksum
+ -> protects against corruption that may occur during packet transmission
+ -> redundant info added to the packet
        
-       
+IP Package:
+Header-Adding module
+Processing MOdule
+Queues
+Routing Table
+Forwarding Module
+MTU Table
+Fragmentation Module
+Reassembly Table
+Reassembly Module
+
+MTU Table has Interface number and MTU
+Reassembly Table 
