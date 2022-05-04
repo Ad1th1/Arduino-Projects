@@ -122,5 +122,8 @@ created at sender's side
 -> sum k data blocks
 -> do 1's complement to the sum = checksum
 
+at receiver's side:
+-> sum of data and checksum = all 1's => no error
+
 
 
