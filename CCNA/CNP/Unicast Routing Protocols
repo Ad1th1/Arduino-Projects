@@ -4,8 +4,64 @@
 -> routers need forwarding tables 
 -> routers need forwarding tables to pass packets around
 
--> distance vector routing -> RIP
--> link-state routing -> OSPF
+-> distance vector routing -> RIP(Routing Information Protocol)
+-> link-state routing -> OSPF(Open Shortest Path First)
 -> path-vector routing
 
 -> Internet = internetwork of networks connected by routers
+   -> datagram passes through many routers before reaching it's destination
+   
+-> Internet is divided into autonomous systems (AS) = group of networks and routers under the authority of a single administration
+-> Routing inside an autonomous sytem = intra-domain routing = distance-vector(RIP) and link-state(OSPF)
+-> Routing between autonomous systems = inter-domain routing = path vector(BGP)
+
+-> Bellman Ford algorithm
+-> Distance Vector Routing Algorithm
+-> Count to infinity
+
+**Routing tables:**
+-> static = manual entries
+-> dynamic = updated automatically
+
+Routing protocols = created for dynamic routing tables
+-> combo of rules and procedures that allow routers to exchange information
+-> can be interior(intradomain routing) or exterior(interdomain routing)
+
+Distance Vector Routing:
+-> each node constructs a 1D array containing the distance to all other nodes and distributes that vector to immediate neighbours
+-> starting assumption is that each node knows the cost of the link to it's immediate neighbours
+
+-> uses Bellman Ford algorithm to find shortest path between routers = creates result synchronously
+-> tweaks bellman ford a little 
+-> each router executes Bellman ford algo
+
+Problem with distance vector routing:
+-> good news propogates quickly, but bad news doesn't
+-> several updates before a cost for a broken link is recorded = COUNT TO INFINITY
+
+Two node instability
+-> if one node fails, packets keep bouncing between each other, constantly updating ach other = 2-node loop problem
+Solutions:
+ -> define infinity as 16
+      -> disadvantage = can't be used in large systems where hop count might be > 15
+ -> split horizon
+    -> each node sends only part of it's table to the other nodes
+    
+-> split horizon and poison reverse
+
+3-node instability
+-> does not have a solution
+
+Routing Information Protocol:
+-> intradomain routing protocol based on distance vector routing
+
+
+Link-State Routing:
+  -> each node has entire network topology
+  -> can use Djikstra algorithm
+  -> Steps to creating a routing table:
+      1. Create state of link by each node = link state packet or LSP
+      2. Disseminate LSP to every other router by flooding
+      3. Form the shortest path tree for every node
+      4. Calculate routing table based on shortest path tree
+      
