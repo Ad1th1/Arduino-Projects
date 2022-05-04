@@ -27,7 +27,7 @@ Routing protocols = created for dynamic routing tables
 -> combo of rules and procedures that allow routers to exchange information
 -> can be interior(intradomain routing) or exterior(interdomain routing)
 
-Distance Vector Routing:
+**Distance Vector Routing:**
 -> each node constructs a 1D array containing the distance to all other nodes and distributes that vector to immediate neighbours
 -> starting assumption is that each node knows the cost of the link to it's immediate neighbours
 
@@ -52,11 +52,25 @@ Solutions:
 3-node instability
 -> does not have a solution
 
-Routing Information Protocol:
+**Routing Information Protocol:**
+-> oldest distance-vector routing protocol -> employs hop-count as routing metric
+-> hop-count = 0 -> directly connected
+-> hop-count = 16 -> unreachable
+-> prevents routing loops by implementing a limit on number of hops allowed in a path from source to destination
+-> infinity = 16
+-> RIP Versions = v1,v2,ng(new generation)
+-> timers
+   -> update timer
+   -> invalid timer(expiration timer)
+   -> flush timer
+   -> hold-down timer
 -> intradomain routing protocol based on distance vector routing
 
+Limitations of RIP
+-> county to infinity
+-> slow convergence
 
-Link-State Routing:
+**Link-State Routing:**
   -> each node has entire network topology
   -> can use Djikstra algorithm
   -> Steps to creating a routing table:
@@ -64,4 +78,26 @@ Link-State Routing:
       2. Disseminate LSP to every other router by flooding
       3. Form the shortest path tree for every node
       4. Calculate routing table based on shortest path tree
-      
+   ->  
+   
+   
+Link State -> complete topology -> flooding
+
+**Difference between LSR and DVR**
+Features: topology : communication type : convergence : routing loops : algorithm : metric : update : scalability : protocol
+LSR => complete : flooding : faster(only neighbour updates) : less : Djikstra's algo : cost : triggered, partial : highly scalable : OSPF
+DVR => local : exchange(neighbours only) : slower(entire table is shared) : more(count to infinity) : Bellman Ford : hop-count : frequent, periodic : limited : RIP
+
+**OSPF** (Open Shortest Path First)
+-> routing protocol for IP networks
+-> link state routing algorithm that falls in the group of interior gateway protocol, operating 
+within a single autonomous system
+-> uses cost(bandwidth,delay and load) as metric
+-> better than RIP(uses hop count as metric)
+-> reliable for large and complex networks
+-> maintains link-state databases
+-> state of a given route in the network is the cost and OSPF algorithm allows every router 
+to calculate route cost to any destination
+
+-> router interface with OSPF will advertise it's link cost to neighbouring routers through multicast, known as hello procedure
+
