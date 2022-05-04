@@ -1,0 +1,74 @@
+Datagram
+Fragmentation
+Options
+Checksum
+IP Design
+
+IP = Network Layer Protocol
+   = unreliable and connectionless
+   = best-effort delivery service
+   = packet of IP layer = datagram = variable-length packet containing 2 parts = header and data
+   = header = 20 - 60 bytes in length = contains info necessary for routing and delivery
+   
+IP datagram header
+VER(4 bits) Hlen(4 bits) DS(8 bits) | Total length(16 bits)
+Identification(16 bits)             | Flags(3 bits) Fragmentation Offset(13 bits)
+TTL(8 bits) Protocol(8 bits)        | Header Checksum(16 bits)
+Source IP Address
+Destination IP Address
+Option
+
+Service types
+Type Of Service (TOS) bits are a set of four-bit flags in the IP header
+DTRC
+TOS-Bits
+1000      D: minimize delay 
+0100      T: maximize throughput 
+0010      R: maximize reliability
+0001      C: maximize cost
+0000      Normal(default)
+
+The DS codepoint (DSCP) defines in the packet header the action that any Diffserv-aware system should take on a marked packet.
+Value for Codepoint
+XX0 = Internet
+X11 = Local
+X01 = Temporary or experimental
+
+-> Precedence subfield was designed but never used in IPv4
+-> Total length field = Total length of data + header = minimum of 46 bytes
+
+-> Transport Layer: TCP & UDP
+-> Network Layer: Header + ICMP + IGMP + OSPF + TCP + UDP
+-> Gathering data from multiple application processes of the sender, enveloping that data with a header, and sending them as a whole to the intended 
+receiver is called multiplexing. 
+-> Value : Protocol = 1:ICMP, 2:IGMP, 6:TCP, 17:UDP, 89:OSPF
+
+-> hlen * 4 = number of bytes
+-> 1 byte = 2 hexadecimal digits
+
+-> Fragmentation = datagram is fragmented to fit protocol regulations
+    -> MTU = Max length of data that can be encapsulated in a frame
+    -> Fields related to fragmentation
+    
+-> MTU:
+    At host: select MTU of link it is connected to
+    At intermediate router: forward the datagram on a network with smaller MTU
+    Reassemby is best done at destination
+    Fragmentation fields = 
+    -> identification = helps identify a datagram(all fragments carry the same identification)
+    -> flags = 3 bits
+        bit 0 = reserved(set to 0)
+        bit 1 = don't fragment = useful for path MTU discovery
+        bit 2 = more fragments = set to 1 to indicate more fragments to follow
+    -> fragmentation offset
+       -> measures data/payload in 8-byte blocks
+       -> for a parti
+           
+->  Options = max of 40 bytes
+     Format = Code(8 bits) Length(8 bits) Data(Variable length)
+        Code = Copy(1 bit) Class(2 bits) NUmber(5 bits)
+        
+       
+       
+       
+       
