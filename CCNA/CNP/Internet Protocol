@@ -106,4 +106,21 @@ Reassembly Table
 Reassembly Module
 
 MTU Table has Interface number and MTU
-Reassembly Table 
+
+Reassembly Table: 
+State
+Source Address
+Datagram ID
+Time Out
+Fragments
+
+Checksum
+created at sender's side
+
+# k sections, n bits each
+-> break original message into k blocks with n bits in each block
+-> sum k data blocks
+-> do 1's complement to the sum = checksum
+
+
+
