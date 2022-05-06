@@ -1,0 +1,4 @@
+-> To relate the kinematic information of
+robot components, we rigidly attach a local coordinate frame Bi to each
+link (i) at joint i + 1 based on the following standard method, known as
+Denavit-Hartenberg (DH) method.
