@@ -1,5 +1,5 @@
-// code written by Naman More
-// I have only debugged and compiled this code
+// code source: Naman More
+// My contribution: debugging and integration of various individual portions
 
 #include <math.h>
 int dd[] = {false, false, false, true};
